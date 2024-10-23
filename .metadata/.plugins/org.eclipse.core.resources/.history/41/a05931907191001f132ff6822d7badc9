@@ -1,0 +1,109 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="model.Habitacion"%>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Habitación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .box-registro {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+            border: 1px solid #ccc;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: #4CAF50;
+            outline: none;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Actualizar Habitación</h1>
+
+<div class="box-registro">
+    <form action="ControladorHabitacion" method="post">
+        <input type="hidden" name="id" value="<%=request.getAttribute("id") %>">
+        
+        <label for="tipo">TIPO DE HABITACIÓN</label>
+        <select id="tipo" name="tipo" required>
+            <option value="" disabled selected>Seleccione tipo</option>
+            <%-- Aquí deberías agregar la lógica para cargar tipos de habitación desde el DAO --%>
+            <option value="1" <%= tipoHabitacion.equals("1") ? "selected" : "" %>>Individual</option>
+            <option value="2" <%= tipoHabitacion.equals("2") ? "selected" : "" %>>Doble</option>
+            <option value="3" <%= tipoHabitacion.equals("3") ? "selected" : "" %>>Suite</option>
+            <option value="4" <%= tipoHabitacion.equals("4") ? "selected" : "" %>>Familiar</option>
+        </select>
+        
+        <label for="precio">PRECIO</label>
+        <input type="number" id="precio" name="precio" value="<%=precio%>" required step="0.01">
+        
+        <label for="comodidades">COMODIDADES</label>
+        <input type="text" id="comodidades" name="comodidades" value="<%=comodidades%>" required>
+        
+        <label for="estado">ESTADO</label>
+        <select id="estado" name="estado" required>
+            <option value="" disabled selected>Seleccione estado</option>
+            <option value="1" <%= estadoHabitacion.equals("1") ? "selected" : "" %>>Disponible</option>
+            <option value="2" <%= estadoHabitacion.equals("2") ? "selected" : "" %>>Ocupada</option>
+            <option value="3" <%= estadoHabitacion.equals("3") ? "selected" : "" %>>En mantenimiento</option>
+        </select>
+        
+        <button type="submit">Actualizar Habitación</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+

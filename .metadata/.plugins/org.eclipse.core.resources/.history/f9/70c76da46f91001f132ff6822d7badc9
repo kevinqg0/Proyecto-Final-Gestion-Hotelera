@@ -1,0 +1,98 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@page import="model.Habitacion"%>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Habitación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction:column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .box-registro {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Actualizar Habitación</h1>
+
+<div class="box-registro">
+    <form action="ControladorHabitacion" method="post">
+        <%
+        String id = (request.getAttribute("id") != null) ? request.getAttribute("id").toString() : "";
+        String tipoHabitacion = (request.getAttribute("tipoHabitacion") != null) ? request.getAttribute("tipoHabitacion").toString() : "";
+        String precio = (request.getAttribute("precio") != null) ? request.getAttribute("precio").toString() : "";
+        String comodidades = (request.getAttribute("comodidades") != null) ? request.getAttribute("comodidades").toString() : "";
+        String estadoHabitacion = (request.getAttribute("estadoHabitacion") != null) ? request.getAttribute("estadoHabitacion").toString() : "";
+        %>
+        <label for="id">ID HABITACIÓN</label>
+        <input type="text" id="id" name="id" value="<%=id%>" readonly>
+        
+        <label for="tipoHabitacion">TIPO DE HABITACIÓN</label>
+        <input type="text" id="tipoHabitacion" name="tipoHabitacion" value="<%=tipoHabitacion%>" required>
+        
+        <label for="precio">PRECIO</label>
+        <input type="text" id="precio" name="precio" value="<%=precio%>" required>
+        
+        <label for="comodidades">COMODIDADES</label>
+        <input type="text" id="comodidades" name="comodidades" value="<%=comodidades%>" required>
+        
+        <label for="estadoHabitacion">ESTADO</label>
+        <input type="text" id="estadoHabitacion" name="estadoHabitacion" value="<%=estadoHabitacion%>" required>
+        
+        <button type="submit">Actualizar Habitación</button>
+    </form>
+</div>
+
+</body>
+</html>

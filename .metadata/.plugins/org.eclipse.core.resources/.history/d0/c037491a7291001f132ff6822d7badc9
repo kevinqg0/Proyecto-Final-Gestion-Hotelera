@@ -1,0 +1,128 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="model.Habitacion"%>
+<%@ page import="model.Tipohabitacion"%>
+<%@ page import="model.Estadohabitacion"%>
+<%@ page import="model.Habitacion" %>
+<%@ page import="model.Tipohabitacion" %>
+<%@ page import="model.Estadohabitacion" %>
+<%@ page import="java.util.List" %>
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Habitación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .box-registro {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+            border: 1px solid #ccc; /* Añadir borde al contenedor */
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="text"]:focus, select:focus {
+            border-color: #4CAF50; /* Cambiar el color del borde al enfocar */
+            outline: none; /* Quitar el outline predeterminado */
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Actualizar Habitación</h1>
+
+<div class="box-registro">
+    <form action="ControladorHabitacion" method="post">
+        <input type="hidden" name="id" value="<%= request.getAttribute("habitacion").getID_Habitacion() %>">
+        
+        <label for="tipo">TIPO DE HABITACIÓN</label>
+        <select id="tipo" name="tipo" required>
+            <option value="" disabled selected>Seleccione tipo</option>
+            <%
+                List<Tipohabitacion> tiposHabitacion = (List<Tipohabitacion>) request.getAttribute("tiposHabitacion");
+                Habitacion habitacion = (Habitacion) request.getAttribute("habitacion");
+                for (Tipohabitacion tipo : tiposHabitacion) {
+            %>
+                <option value="<%= tipo.getID_Tipohabitacion() %>" <%= habitacion.getTipohabitacion().getID_Tipohabitacion() == tipo.getID_Tipohabitacion() ? "selected" : "" %> >
+                    <%= tipo.getNombre() %>
+                </option>
+            <%
+                }
+            %>
+        </select>
+        
+        <label for="precio">PRECIO</label>
+        <input type="number" id="precio" name="precio" value="<%= habitacion.getPrecio() %>" required step="0.01">
+        
+        <label for="comodidades">COMODIDADES</label>
+        <input type="text" id="comodidades" name="comodidades" value="<%= habitacion.getComodidades() %>" required>
+        
+        <label for="estado">ESTADO</label>
+        <select id="estado" name="estado" required>
+            <option value="" disabled selected>Seleccione estado</option>
+            <%
+                List<Estadohabitacion> estadosHabitacion = (List<Estadohabitacion>) request.getAttribute("estadosHabitacion");
+                for (Estadohabitacion estado : estadosHabitacion) {
+            %>
+                <option value="<%= estado.getID_Estadohabitacion() %>" <%= habitacion.getEstadohabitacion().getID_Estadohabitacion() == estado.getID_Estadohabitacion() ? "selected" : "" %> >
+                    <%= estado.getNombre() %>
+                </option>
+            <%
+                }
+            %>
+        </select>
+        
+        <button type="submit">Actualizar Habitación</button>
+    </form>
+</div>
+
+</body>
+</html>
+
+
+

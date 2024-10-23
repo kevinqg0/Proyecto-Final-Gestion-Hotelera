@@ -1,0 +1,161 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 100vh;
+    background-color: #c5dec9; /* Cambiado a #c5dec9 como solicitaste */
+}
+.contenedor {
+    display: flex;
+    width: 95%;
+    height: 90vh;
+    margin: 20px;
+    background-color: white;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    border-radius: 12px;
+}
+
+.izqUsuario {
+    background-color: white;
+    width: 250px; /* Ancho fijo en lugar de porcentaje */
+    padding: 20px;
+    border-right: 1px solid #e1e1e1;
+}
+
+.imgUsu-nameUsu {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.imgUsu-nameUsu img {
+    width: 80px; /* Tamaño fijo más pequeño */
+    height: 80px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    border: 2px solid #c5dec9;
+}
+
+.imgUsu-nameUsu h2 {
+    color: #333;
+    font-size: 16px;
+    margin: 0;
+}
+
+.actionsUsu a, .listados a {
+    display: block;
+    padding: 10px 15px;
+    margin: 8px 0;
+    text-align: left;
+    text-decoration: none;
+    border-radius: 6px;
+    background-color: #c5dec9;
+    color: #333;
+    font-size: 14px;
+    transition: all 0.3s ease;
+}
+
+.actionsUsu a:hover, .listados a:hover {
+    background-color: #a5c2aa;
+    transform: translateX(5px);
+}
+
+.derAcciones {
+    flex: 1;
+    padding: 30px;
+    background-color: #ffffff;
+}
+
+.listados {
+    display: flex;
+    gap: 15px;
+    margin-bottom: 30px;
+    width: 100%;
+    justify-content: space-between; /* Distribuye el espacio uniformemente */
+}
+.listados a {
+    flex: 1; /* Hace que todos los botones tengan el mismo ancho */
+    text-align: center;
+    padding: 10px 15px;
+    background-color: #c5dec9;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se rompa en múltiples líneas */
+}
+.listados a {
+    flex: 1; /* Hace que todos los botones tengan el mismo ancho */
+    text-align: center;
+    padding: 10px 15px;
+    background-color: #c5dec9;
+    color: #333;
+    text-decoration: none;
+    border-radius: 6px;
+    font-size: 14px;
+    transition: all 0.3s ease;
+    white-space: nowrap; /* Evita que el texto se rompa en múltiples líneas */
+}
+.listado-habitaciones {
+    width: 100%;
+}
+
+.listado-habitaciones h1 {
+    color: #333;
+    font-size: 24px;
+    margin-bottom: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background-color: white;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+th {
+    background-color: #c5dec9;
+    color: #333;
+    padding: 15px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 14px;
+}
+
+td {
+    padding: 12px 15px;
+    border-bottom: 1px solid #eee;
+    color: #444;
+    font-size: 14px;
+}
+
+.btn-editar, .btn-eliminar {
+    padding: 6px 12px;
+    border-radius: 4px;
+    border: none;
+    cursor: pointer;
+    font-size: 13px;
+    transition: background-color 0.3s;
+}
+
+.btn-editar {
+    background-color: #c5dec9;
+    color: #333;
+}
+
+.btn-eliminar {
+    background-color: #ffebe9;
+    color: #333;
+}
+
+.btn-editar:hover {
+    background-color: #a5c2aa;
+}
+
+.btn-eliminar:hover {
+    background-color: #ffd1cc;
+}

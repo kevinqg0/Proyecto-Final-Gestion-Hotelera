@@ -1,0 +1,137 @@
+<%@ page language="java" contentType="text/html; charset=ISO-8859-1" pageEncoding="ISO-8859-1"%>
+<%@ page import="model.Habitacion"%>
+<%@ page import="model.Tipohabitacion"%>
+<%@ page import="model.Estadohabitacion"%>
+<%@ page import="java.util.List"%>
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="ISO-8859-1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Actualizar Habitación</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f4f4f4;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+        }
+        h1 {
+            text-align: center;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .box-registro {
+            background-color: #ffffff;
+            padding: 20px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            border-radius: 10px;
+            width: 400px;
+            border: 1px solid #ccc;
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+        }
+        label {
+            margin-bottom: 5px;
+            color: #333;
+        }
+        input[type="text"], input[type="number"], select {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 15px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        button {
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+            font-size: 16px;
+            margin-top: 10px;
+        }
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+
+<h1>Actualizar Habitación</h1>
+
+<div class="box-registro">
+    <form action="ControladorHabitacion" method="post">
+        <%
+            // Asegúrate de hacer casting adecuado
+            Habitacion habitacion = (Habitacion) request.getAttribute("habitacion");
+            List<Tipohabitacion> tiposHabitacion = (List<Tipohabitacion>) request.getAttribute("tiposHabitacion");
+            List<Estadohabitacion> estadosHabitacion = (List<Estadohabitacion>) request.getAttribute("estadosHabitacion");
+
+            if (habitacion != null) {
+        %>
+        <label for="id">ID HABITACIÓN</label>
+        <input type="text" id="id" name="id" value="<%= habitacion.getID_Habitacion() %>" required readonly>
+
+        <label for="tipoHabitacion">TIPO DE HABITACIÓN</label>
+        <select id="tipoHabitacion" name="tipo" required>
+            <option value="" disabled>Seleccione tipo</option>
+            <%
+            for (Tipohabitacion tipo : tiposHabitacion) {
+            %>
+                <option value="<%= tipo.getID_Tipohabitacion() %>" 
+                    <%= habitacion.getTipohabitacion().getID_Tipohabitacion() == tipo.getID_Tipohabitacion() ? "selected" : "" %>>
+                    <%= tipo.getNombre() %>
+                </option>
+            <%
+            }
+            %>
+        </select>
+
+        <label for="precio">PRECIO</label>
+        <input type="number" id="precio" name="precio" value="<%= habitacion.getPrecio() %>" required>
+
+        <label for="comodidades">COMODIDADES</label>
+        <input type="text" id="comodidades" name="comodidades" value="<%= habitacion.getComodidades() %>" required>
+
+        <label for="estadoHabitacion">ESTADO</label>
+        <select id="estadoHabitacion" name="estado" required>
+            <option value="" disabled>Seleccione estado</option>
+            <%
+            for (Estadohabitacion estado : estadosHabitacion) {
+            %>
+                <option value="<%= estado.getID_Estadohabitacion() %>" 
+                    <%= habitacion.getEstadohabitacion().getID_Estadohabitacion() == estado.getID_Estadohabitacion() ? "selected" : "" %>>
+                    <%= estado.getNombre() %>
+                </option>
+            <%
+            }
+            %>
+        </select>
+
+        <button type="submit">Actualizar Habitación</button>
+        <%
+            } else {
+                // Manejo del error si la habitación es nula
+                out.println("<p>Error: No se encontró la habitación.</p>");
+            }
+        %>
+    </form>
+</div>
+
+</body>
+</html>
+
+
+
+

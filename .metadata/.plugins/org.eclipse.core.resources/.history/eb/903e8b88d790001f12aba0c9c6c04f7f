@@ -1,0 +1,57 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd" >
+
+<web-app>
+  <display-name>Archetype Created Web Application</display-name>
+  <servlet>
+  	<servlet-name>ControladorCliente</servlet-name>
+  	<display-name>ControladorCliente</display-name>
+  	<description></description>
+  	<servlet-class>controlador.ControladorCliente</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControladorHabitacion</servlet-name>
+  	<display-name>ControladorHabitacion</display-name>
+  	<description></description>
+  	<servlet-class>controlador.ControladorHabitacion</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControladorReserva</servlet-name>
+  	<display-name>ControladorReserva</display-name>
+  	<description></description>
+  	<servlet-class>controlador.ControladorReserva</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControladorTipos</servlet-name>
+  	<display-name>ControladorTipos</display-name>
+  	<description></description>
+  	<servlet-class>controlador.ControladorTipos</servlet-class>
+  </servlet>
+  <servlet>
+  	<servlet-name>ControladorUsuario</servlet-name>
+  	<display-name>ControladorUsuario</display-name>
+  	<description></description>
+  	<servlet-class>controlador.ControladorUsuario</servlet-class>
+  </servlet>
+  <servlet-mapping>
+  	<servlet-name>ControladorCliente</servlet-name>
+  	<url-pattern>/ControladorCliente</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControladorHabitacion</servlet-name>
+  	<url-pattern>/ControladorHabitacion</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControladorReserva</servlet-name>
+  	<url-pattern>/ControladorReserva</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControladorTipos</servlet-name>
+  	<url-pattern>/ControladorTipos</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+  	<servlet-name>ControladorUsuario</servlet-name>
+  	<url-pattern>/ControladorUsuario</url-pattern>
+  </servlet-mapping>
+</web-app>

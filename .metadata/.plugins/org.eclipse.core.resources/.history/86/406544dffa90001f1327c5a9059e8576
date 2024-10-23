@@ -1,0 +1,126 @@
+package controlador;
+
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import Dao.ClassEstadohabitacionImp;
+import Dao.ClassHabitacionImp;
+import Dao.ClassTipohabitacionImp;
+import Dao.EstadohabitacionDAO;
+import Dao.TipohabitacionDAO;
+import model.Estadohabitacion;
+import model.Habitacion;
+import model.Tipohabitacion;
+
+@WebServlet("/ControladorHabitacion")
+public class ControladorHabitacion extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    private ClassHabitacionImp habitacionDAO = new ClassHabitacionImp();
+    private TipohabitacionDAO tipoHabitacionDAO = new TipohabitacionDAO();
+    private EstadohabitacionDAO estadoHabitacionDAO = new EstadohabitacionDAO();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        
+        if (accion != null) {
+            switch (accion) {
+                case "Actualizar":
+                    actualizarHabitacion(request, response);
+                    break;
+                case "Eliminar":
+                    eliminarHabitacion(request, response);
+                    break;
+                case "Listar":
+                    listarHabitaciones(request, response);
+                    break;
+                default:
+                    listarHabitaciones(request, response);
+                    break;
+            }
+        } else {
+            cargarFormularioRegistro(request, response);
+        }
+    }
+    
+    private void actualizarHabitacion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Habitacion hab = new Habitacion();
+        hab.setID_Habitacion(id);
+        Habitacion buscarId = habitacionDAO.BuscarHabitacion(hab);
+
+        request.setAttribute("id", buscarId.getID_Habitacion());
+        request.setAttribute("precio", buscarId.getPrecio());
+        request.setAttribute("comodidades", buscarId.getComodidades());
+
+        request.getRequestDispatcher("/ActualizarHabitacion.jsp").forward(request, response);
+    }
+
+    private void eliminarHabitacion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int idEliminar = Integer.parseInt(request.getParameter("id"));
+        Habitacion hab = new Habitacion();
+        hab.setID_Habitacion(idEliminar);
+        habitacionDAO.EliminarHabitacion(hab);
+
+        listarHabitaciones(request, response);
+    }
+
+    private void listarHabitaciones(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Habitacion> listadoHabitacion = habitacionDAO.listaHabitacion();
+        request.setAttribute("listadoHabitaciones", listadoHabitacion);
+        request.getRequestDispatcher("/ListadoHabitaciones.jsp").forward(request, response);
+    }
+
+    private void cargarFormularioRegistro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Tipohabitacion> listaTiposHabitacion = tipoHabitacionDAO.findAll();
+        List<Estadohabitacion> listaEstadosHabitacion = estadoHabitacionDAO.findAll();
+
+        request.setAttribute("listaTiposHabitacion", listaTiposHabitacion);
+        request.setAttribute("listaEstadosHabitacion", listaEstadosHabitacion);
+
+        request.getRequestDispatcher("/ListadoHabitaciones.jsp").forward(request, response);
+    }
+
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+    	
+    	// Retrieve form parameters
+        String idTipoStr = request.getParameter("idtipo");
+        String precioStr = request.getParameter("pre");
+        String comodidades = request.getParameter("comodidades");
+        String idEstadoStr = request.getParameter("est");
+
+        int idTipo = Integer.parseInt(idTipoStr);
+        double precio = Double.parseDouble(precioStr);
+        int idEstado = Integer.parseInt(idEstadoStr);
+
+        ClassTipohabitacionImp tipoHabitacionDAO = new ClassTipohabitacionImp();
+        ClassEstadohabitacionImp estadoHabitacionDAO = new ClassEstadohabitacionImp();
+        ClassHabitacionImp habitacionDAO = new ClassHabitacionImp();
+
+        Tipohabitacion tipohabitacion = tipoHabitacionDAO.findTipohabitacionById(idTipo);
+        Estadohabitacion estadohabitacion = estadoHabitacionDAO.findEstadohabitacionById(idEstado);
+
+        Habitacion habitacion = new Habitacion();
+        habitacion.setTipohabitacion(tipohabitacion);
+        habitacion.setEstadohabitacion(estadohabitacion);
+        habitacion.setPrecio(precio);
+        habitacion.setComodidades(comodidades);
+
+        habitacionDAO.RegistrarHabitacion(habitacion);
+        
+        List<Habitacion> listadoHabitacion = habitacionDAO.listaHabitacion();
+        request.setAttribute("listadoHabitaciones", listadoHabitacion);
+        request.getRequestDispatcher("/ListadoHabitaciones.jsp").forward(request, response);
+    }
+}

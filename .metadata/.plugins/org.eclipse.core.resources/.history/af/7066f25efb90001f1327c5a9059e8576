@@ -1,0 +1,91 @@
+package controlador;
+
+import java.io.IOException;
+import java.util.List;
+import javax.servlet.ServletException;
+import javax.servlet.annotation.WebServlet;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import Dao.ClassEstadohabitacionImp;
+import Dao.ClassHabitacionImp;
+import Dao.ClassTipohabitacionImp;
+import interfaces.IEstadohabitacion;
+import interfaces.IHabitacion;
+import interfaces.ITipohabitacion;
+import model.Estadohabitacion;
+import model.Habitacion;
+import model.Tipohabitacion;
+
+@WebServlet("/ControladorHabitacion")
+public class ControladorHabitacion extends HttpServlet {
+    private static final long serialVersionUID = 1L;
+
+    // Utilizar interfaces para mejor flexibilidad y mantenimiento
+    private IHabitacion habitacionDAO = new ClassHabitacionImp();
+    private ITipohabitacion tipoHabitacionDAO = new ClassTipohabitacionImp();
+    private IEstadohabitacion estadoHabitacionDAO = new ClassEstadohabitacionImp();
+
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        String accion = request.getParameter("accion");
+        
+        if (accion != null) {
+            switch (accion) {
+                case "Actualizar":
+                    actualizarHabitacion(request, response);
+                    break;
+                case "Eliminar":
+                    eliminarHabitacion(request, response);
+                    break;
+                case "Listar":
+                    listarHabitaciones(request, response);
+                    break;
+                default:
+                    listarHabitaciones(request, response);
+                    break;
+            }
+        } else {
+            cargarFormularioRegistro(request, response);
+        }
+    }
+
+    private void actualizarHabitacion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int id = Integer.parseInt(request.getParameter("id"));
+        Habitacion buscarId = habitacionDAO.BuscarHabitacion(new Habitacion(id));
+
+        request.setAttribute("id", buscarId.getID_Habitacion());
+        request.setAttribute("precio", buscarId.getPrecio());
+        request.setAttribute("comodidades", buscarId.getComodidades());
+        request.setAttribute("idTipo", buscarId.getTipohabitacion().getId()); // Suponiendo que tienes un método para obtener el ID de tipo de habitación
+        request.setAttribute("idEstado", buscarId.getEstadohabitacion().getId()); // Suponiendo que tienes un método para obtener el ID del estado
+
+        request.getRequestDispatcher("/ActualizarHabitacion.jsp").forward(request, response);
+    }
+
+    private void eliminarHabitacion(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        int idEliminar = Integer.parseInt(request.getParameter("id"));
+        habitacionDAO.EliminarHabitacion(new Habitacion(idEliminar));
+
+        listarHabitaciones(request, response);
+    }
+
+    private void listarHabitaciones(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Habitacion> listadoHabitacion = habitacionDAO.listaHabitacion();
+        request.setAttribute("listadoHabitaciones", listadoHabitacion);
+        request.getRequestDispatcher("/ListadoHabitaciones.jsp").forward(request, response);
+    }
+
+    private void cargarFormularioRegistro(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+        List<Tipohabitacion> listaTiposHabitacion = tipoHabitacionDAO.findAll();
+        List<Estadohabitacion> listaEstadosHabitacion = estadoHabitacionDAO.listaEstadoHabitacion();
+
+        request.setAttribute("listaTiposHabitacion", listaTiposHabitacion);
+        request.setAttribute("listaEstadosHabitacion", listaEstadosHabitacion);
+
+        request.getRequestDispatcher("/Regis

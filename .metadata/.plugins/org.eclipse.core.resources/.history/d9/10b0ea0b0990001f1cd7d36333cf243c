@@ -1,0 +1,24 @@
+package Dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.PersistenceContext;
+
+import model.Estadohabitacion;
+
+public class EstadohabitacionDAO {
+
+
+    @PersistenceContext(unitName = "PoyectoHoteleriaLP2")
+    private EntityManager em;
+
+    public List<Estadohabitacion> findAll() {
+        return em.createQuery("SELECT e FROM Estadohabitacion e", Estadohabitacion.class).getResultList();
+    }
+
+    public Estadohabitacion findById(Integer id) {
+        return em.find(Estadohabitacion.class, id);
+    }
+    
+}

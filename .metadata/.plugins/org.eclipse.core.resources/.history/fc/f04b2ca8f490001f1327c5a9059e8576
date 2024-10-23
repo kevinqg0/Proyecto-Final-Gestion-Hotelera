@@ -1,0 +1,131 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #f5f5f5;
+    color: #333;
+}
+
+.contenedor {
+    display: flex;
+    width: 90%;
+    max-width: 1600px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.izqUsuario {
+    background-color: #ffffff;
+    width: 20%; /* Reducido de 30% a 20% */
+    padding: 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+}
+
+.imgUsu-nameUsu {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.imgUsu-nameUsu img {
+    border-radius: 50%;
+    width: 100px; /* Reducido el tamaño de la imagen */
+    margin-bottom: 10px;
+}
+
+.imgUsu-nameUsu h2 {
+    color: #333;
+    font-size: 1.2em; /* Reducido el tamaño del texto */
+}
+
+.actionsUsu a, .listados a {
+    display: block;
+    width: 100%;
+    max-width: 200px; /* Reducido de 300px a 200px */
+    padding: 10px;
+    margin: 8px 0;
+    text-align: center;
+    text-decoration: none;
+    border-radius: 4px;
+    background-color: #c5dec9;
+    color: #333;
+    font-size: 14px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.actionsUsu a:hover, .listados a:hover {
+    background-color: #a5c2aa;
+}
+
+.derAcciones {
+    background-color: #ffffff;
+    width: 80%; /* Aumentado de 70% a 80% */
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+}
+
+.listados {
+    width: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 20px;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 0;
+    font-size: 16px;
+    min-width: 600px;
+    background-color: #ffffff;
+}
+
+th {
+    background-color: #c5dec9;
+    color: #333;
+    text-align: left;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+td {
+    color: #333;
+    padding: 12px 15px;
+    border: 1px solid #ddd;
+}
+
+.btn-editar, .btn-eliminar {
+    padding: 8px 12px;
+    margin-right: 5px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.btn-editar {
+    background-color: #4CAF50;
+    color: white;
+}
+
+.btn-eliminar {
+    background-color: #f44336;
+    color: white;
+}
+
+.btn-editar:hover, .btn-eliminar:hover {
+    opacity: 0.8;
+}

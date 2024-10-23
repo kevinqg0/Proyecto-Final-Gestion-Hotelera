@@ -1,0 +1,37 @@
+package Dao;
+
+import java.util.List;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.Persistence;
+
+import interfaces.IEstadohabitacion;
+import model.Estadohabitacion;
+
+public class ClassEstadohabitacionImp implements IEstadohabitacion implements EstadohabitacionDAO {
+
+	private EntityManager em;
+	
+	public List<Estadohabitacion> listaEstadoHabitacion() {
+		EntityManagerFactory em = Persistence.createEntityManagerFactory("ProyectoGestionHotelera");
+		EntityManager emanager = em.createEntityManager();
+		emanager.getTransaction().begin();
+		List<Estadohabitacion> listadoestadohabitacion = emanager.createQuery("SELECT e FROM Estadohabitacion e", Estadohabitacion.class).getResultList();
+		emanager.getTransaction().commit();
+		emanager.close();
+		return listadoestadohabitacion;
+	}
+
+	// ----
+	public ClassEstadohabitacionImp() {
+        EntityManagerFactory emf = Persistence.createEntityManagerFactory("ProyectoGestionHotelera");
+        em = emf.createEntityManager();
+    }
+
+    public Estadohabitacion findEstadohabitacionById(int id) {
+        return em.find(Estadohabitacion.class, id);
+    }
+	
+	
+} //fin de la clase
